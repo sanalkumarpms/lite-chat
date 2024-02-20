@@ -1,0 +1,13 @@
+**/Include/
+**/Lib
+**/Scripts
+*/pyvenv.cfg
+
+__pycache__
+**/__pycache__
+**/__blobstorage__
+**/__queuestorage__
+**/.venv/
+**/__azurite_*__.json
+scratch/
+**/scratch/

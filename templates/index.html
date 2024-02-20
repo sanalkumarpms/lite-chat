@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+      <title>OpenAI Playgrounds</title>
+   </head>
+   <body>
+      <H2>OpenAI Playgrounds</H2>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-sm-6">
+               <div class="tab-content">
+                  <form action="/chat">
+                     <div class="row">
+                        <div class="col-sm-12">
+                           <div class="row">
+                              <div class="col-sm-10">
+                                 <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" name="chatbotOption" id="gpt35" value="GPT-3.5-turbo" checked>
+                                       <label class="form-check-label" for="gpt35">GPT-3.5-turbo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" name="chatbotOption" id="gpt4" value="GPT4">
+                                       <label class="form-check-label" for="gpt4">GPT4</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" name="chatbotOption" id="gpt4t" value="GPT4-turbo">
+                                       <label class="form-check-label" for="gtp4t">GPT4-turbo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" name="chatbotOption" id="gpt4v" value="GPT4 Vision">
+                                       <label class="form-check-label" for="gtp4v">GPT4 Vision</label>
+                                    </div>                         
+                                    <div class="form-check form-check-inline">
+                                       <input class="form-check-input" type="radio" name="chatbotOption" id="gptOther" value="Other">
+                                       <label class="form-check-label" for="gptOther">Other</label>
+                                    </div>                         
+                                 </div>                                          
+                              </div>
+                           </div>
+                           <div id="otherDiv" style="display: none;" class="row">
+                              <div class="col-sm-12">
+                                 <div class="row">
+                                    <div class="col-sm-12">
+                                       <div class="input-group input-group-sm mb-1">
+                                          <div class="input-group-prepend">
+                                             <span class="input-group-text">Resource URL</span>
+                                          </div>
+                                          <input class="form-control" id="otherUrl" type="text">
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                    <div class="col-sm-12">
+                                       <div class="input-group input-group-sm mb-1">
+                                          <div class="input-group-prepend">
+                                             <span class="input-group-text">API Key</span>
+                                          </div>
+                                          <input class="form-control" id="otherApiKey" type="password">
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row">
+                              <div class="col-sm-12">
+                                 <div class="accordion " id="accordion">
+                                    <div class="accordion-item">
+                                       <h4 class="accordion-header" id="headingOne">
+                                          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                             Prompt
+                                          </button>
+                                       </h4>
+                                       <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne">
+                                          <div class="accordion-body">
+                                             <div class="form-group">
+                                                <textarea class="form-control" id="prompt" name="prompt" rows="10" >You are an assistant that helps with user questions</textarea>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                       <h4 class="accordion-header" id="headingTwo">
+                                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                             Context
+                                          </button>
+                                       </h4>
+                                       <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo">
+                                          <div class="accordion-body">
+                                             <textarea class="form-control" id="context" name="context" rows="6"></textarea>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                       <h4 class="accordion-header" id="headingThree">
+                                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                             Examples
+                                          </button>
+                                       </h4>
+                                       <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree">
+                                          <div class="accordion-body">
+                                             <textarea class="form-control" id="examples" name="examples" rows="4" placeholder='[{"role": "user", "content": "Hi"}, &#10;{"role": "assistant", "content": "Hello! How are you?"}]'></textarea>
+                                          </div>
+                                       </div>
+                                    </div>  
+                                    <div class="accordion-item">
+                                       <h4 class="accordion-header" id="headingFour">
+                                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                             Question
+                                          </button>
+                                       </h4>
+                                       <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingFour">
+                                          <div class="accordion-body">
+                                             <textarea class="form-control" id="question" name="question" rows="2"></textarea>
+                                          </div>
+                                       </div>
+                                    </div>                                                                  
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="row mt-2">
+                              <div class="col-sm-12">
+                                 <div class="form-group">
+                                    <button id="submit-button" type="button" class="btn btn-primary" title="Submit your queston to Bot" onclick="makeRequest()">
+                                       <i class="fas fa-comments"></i> Chat
+                                    </button>
+                                    <button type="button" class="btn btn-primary" title="Copy BOT Response" onclick="copyResponse()">
+                                       <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-primary" title="Model Configuration" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                       <i class="fas fa-cog"></i>
+                                    </button>
+                                 </div>
+                              </div>
+                           </div>                                           
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+            <div class="col-sm-6">
+               <ul class="nav nav-tabs" role="tablist">
+                  <li class="nav-item"><a class="nav-link active" id="chatLink" data-bs-toggle="tab" role="tab" href="#chatTab" aria-controls="chatLink" aria-selected="true">Chat History</a></li>
+                  <li class="nav-item"><a class="nav-link" id="parameterLink" data-bs-toggle="tab" role="tab" href="#parameterTab" aria-controls="chatLink" aria-selected="false">Parameters</a></li>
+               </ul>
+               <div class="tab-pane active show fade" role="tabpanel" id="chatTab"  aria-labelledby="chatLink">
+                  <div class="row mt-2">
+                     <div class="col-sm-6">
+                        <div id="tokens"></div>
+                     </div>
+                     <div class="col-sm-6">
+                        <button type="button" class="btn btn-sm btn-primary" title="Clear Chat History" onclick="clearChatHistory()">
+                           <i class="fas fa-trash"></i>
+                        </button>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-12 overflow-auto">
+                        <div id="history"></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="tab-pane fade" role="tabpanel" id="parameterTab" aria-labelledby="parameterLink">
+                  <div class="row">
+                     <div class="col-sm-4">Max Tokens:
+                        <input class="form-control" id="maxTokens" type="text" value="800">
+                     </div>
+                     <div class="col-sm-4">Temperature: 
+                        <input class="form-control" id="temperature" type="text" value="0.7">
+                     </div>
+                     <div class="col-sm-4">Frequency Penalty:
+                        <input class="form-control" id="frequencyPenalty" type="text" value="0">
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="col-sm-4">Presence Penalty:
+                        <input class="form-control" id="presencePenalty" type="text" value="0">
+                     </div>
+                     <div class="col-sm-4">Top P:
+                        <input class="form-control" id="topP" type="text" value="0.95">
+                     </div>
+                     <div class="col-sm-4">Stop:
+                        <input class="form-control" id="stop" type="text" value="">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-xl">
+             <div class="modal-content">
+                 <div class="modal-header">
+                     <h5 class="modal-title" id="exampleModalLabel">Model Deployment Settings</h5>
+                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 </div>
+                 <div class="modal-body">
+                     <div class="row mb-2">
+                         <div class="col-sm-2">Model</div>
+                         <div class="col-sm-6">Resource URL</div>
+                         <div class="col-sm-4">API Key</div>
+                     </div>
+                     <div class="row mb-2">
+                         <div class="col-sm-2">gpt35</div>
+                         <div class="col-sm-6"><input class="form-control" id="gpt35url" type="text"></div>
+                         <div class="col-sm-4"><input class="form-control" id="gpt35key" type="password"></div>
+                     </div>
+                     <div class="row mb-2">
+                         <div class="col-sm-2">gpt4</div>
+                         <div class="col-sm-6"><input class="form-control" id="gpt4url" type="text"></div>
+                         <div class="col-sm-4"><input class="form-control" id="gpt4key" type="password"></div>
+                     </div>
+                     <div class="row mb-2">
+                         <div class="col-sm-2">gpt4t</div>
+                         <div class="col-sm-6"><input class="form-control" id="gpt4turl" type="text"></div>
+                         <div class="col-sm-4"><input class="form-control" id="gpt4tkey" type="password"></div>
+                     </div>
+                     <div class="row">
+                         <div class="col-sm-2">gpt4v</div>
+                         <div class="col-sm-6"><input class="form-control" id="gpt4vurl" type="text"></div>
+                         <div class="col-sm-4"><input class="form-control" id="gpt4vkey" type="password"></div>
+                     </div>
+                 </div>
+                 <div class="modal-footer">
+                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="saveConfig()">Save</button>
+                 </div>
+             </div>
+         </div>
+      </div>
+      
+   </body>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   <script>
+      let submitButton = document.getElementById("submit-button");
+      let gpt35 = document.getElementById('gpt35');
+      let gpt4 = document.getElementById('gpt4');
+      let gpt4t = document.getElementById('gpt4t');
+      let gpt4v = document.getElementById('gpt4v');
+      let gptOther = document.getElementById('gptOther');
+      let otherDiv = document.getElementById('otherDiv');
+      let chatResponse = "";
+      let chatHistory = [];
+
+      let config = [];
+      config = getModelProperties();
+      
+      function makeRequest() {
+         let prompt = document.getElementById("prompt").value;
+         let context = document.getElementById("context").value;
+         let question = document.getElementById("question").value;
+         let examples = document.getElementById("examples").value;
+         let historyDiv = document.getElementById("history");
+         let radios = document.getElementsByName('chatbotOption');
+         let tokenDiv = document.getElementById('tokens')
+         let otherResourceURL = document.getElementById('otherUrl').value
+         let otherApiKey = document.getElementById('otherApiKey').value
+         let model = "";
+         let maxTokens = document.getElementById('maxTokens').value;
+         let temperature = document.getElementById('temperature').value;
+         let frequencyPenalty = document.getElementById('frequencyPenalty').value;
+         let presencePenalty = document.getElementById('presencePenalty').value;
+         let topP = document.getElementById('topP').value;
+         let stop = document.getElementById('stop').value;
+         for (let i = 0, length = radios.length; i < length; i++) {
+            if (radios[i].checked) {
+               model = radios[i].value;
+               break;
+            }
+         }
+         let questionTA = document.getElementById("question");
+         questionTA.style.cursor = "wait";
+         let submitButton = document.getElementById("submit-button");
+         submitButton.disabled = true;
+         let xhttp = new XMLHttpRequest();
+         
+         let url = "/chat";
+         xhttp.open("POST", url, true);
+
+         xhttp.setRequestHeader("Content-Type", "application/json");
+         xhttp.onreadystatechange = function() {
+            if (this.readyState == 4) {
+               chatResponse = JSON.parse(this.responseText);
+               if (this.status == 200) {
+                  tokenDiv.innerHTML = "<b>Total Tokens:</b> " + chatResponse.total_tokens;
+                  chatHistory.push({role: "user", content: question})
+                  chatHistory.push({role: "assistant", content: chatResponse.response})
+                  historyDiv.innerHTML = historyDiv.innerHTML + "<div style=\"color: blue;\">You: " + question + "</div>";
+                  historyDiv.innerHTML = historyDiv.innerHTML + "<div><p>Bot: " + chatResponse.response + "</p></div>";
+               } else {
+                  historyDiv.innerHTML = historyDiv.innerHTML + "<div style=\"color: blue;\">You: " + question + "</div>";
+                  historyDiv.innerHTML = historyDiv.innerHTML + "<div style=\"color: red;\"><p>Bot: ERROR: " + chatResponse.error + "</p></div>";
+               }
+               submitButton.disabled = false;
+               questionTA.style.cursor = "text";
+               questionTA.select();
+            };
+         }
+         let data = JSON.stringify({"model": model, 
+                                    "prompt": prompt, 
+                                    "context": context, 
+                                    "question": question, 
+                                    "examples" : examples, 
+                                    "history": chatHistory, 
+                                    "otherResourceURL": otherResourceURL, 
+                                    "otherApiKey": otherApiKey,
+                                    "maxTokens": maxTokens,
+                                    "temperature": temperature,
+                                    "frequencyPenalty": frequencyPenalty,
+                                    "presencePenalty": presencePenalty,
+                                    "topP": topP,
+                                    "stop": stop});
+         xhttp.onerror = function() {
+            historyDiv.innerHTML = historyDiv.innerHTML + "<div style=\"color: blue;\">You: " + question + "</div>";
+            historyDiv.innerHTML = historyDiv.innerHTML + "<div style=\"color: red;\"><p>Bot: ERROR: An error occurred during the transaction</p></div>";
+            submit_button.disabled = false;
+            questionTA.style.cursor = "text";
+            questionTA.select();
+         };
+         xhttp.send(data);
+      }
+
+      function copyResponse() {
+         if (chatResponse.response) {
+            let copyText = chatResponse.response;
+            navigator.clipboard.writeText(copyText);
+         } else {
+            navigator.clipboard.writeText("");
+         }
+      }
+
+      function clearChatHistory() {
+         let historyDiv = document.getElementById("history");
+         historyDiv.innerHTML = "";
+         chatHistory = [];
+      }
+
+      window.addEventListener("keydown", function(event) {
+         if (event.ctrlKey && event.key === "Enter") {
+            event.preventDefault();
+            makeRequest();
+         }
+      });
+
+      gpt35.addEventListener('change', function() {
+         if (this.checked) {
+            otherDiv.style.display = 'none';
+         } 
+      });
+      gpt4.addEventListener('change', function() {
+         if (this.checked) {
+            otherDiv.style.display = 'none';
+         } 
+      });
+      gpt4t.addEventListener('change', function() {
+         if (this.checked) {
+            otherDiv.style.display = 'none';
+         } 
+      });
+      gpt4v.addEventListener('change', function() {
+         if (this.checked) {
+            otherDiv.style.display = 'none';
+         } 
+      });
+      gptOther.addEventListener('change', function() {
+         if (this.checked) {
+            otherDiv.style.display = 'block';
+         } 
+      });
+      function saveConfig() {
+            let gpt35 = document.getElementById("gpt35url");
+            let gpt35key = document.getElementById("gpt35key");
+            let gpt4 = document.getElementById("gpt4url");
+            let gpt4key = document.getElementById("gpt4key");
+            let gpt4t = document.getElementById("gpt4turl");
+            let gpt4tkey = document.getElementById("gpt4tkey");
+            let gpt4v = document.getElementById("gpt4vurl");
+            let gpt4vkey = document.getElementById("gpt4vkey");
+            let config = [{name: "gpt35", url: gpt35.value, key: gpt35key.value},
+                          {name: "gpt4", url: gpt4.value, key: gpt4key.value},
+                          {name: "gpt4t", url: gpt4t.value, key: gpt4tkey.value},
+                          {name: "gpt4v", url: gpt4v.value, key: gpt4vkey.value}];
+
+            saveModelProperties(config);
+        }
+   
+        function setModelConfig(config) {
+            let gpt35 = document.getElementById("gpt35url");
+            let element = config.find(obj => obj.name === "gpt35");
+            gpt35.value = element.url;
+            let gpt35key = document.getElementById("gpt35key");
+            gpt35key.value = element.key;
+
+            element = config.find(obj => obj.name === "gpt4");
+            let gpt4 = document.getElementById("gpt4url");
+            gpt4.value = element.url;
+            let gpt4key = document.getElementById("gpt4key");
+            gpt4key.value = element.key;
+
+            element = config.find(obj => obj.name === "gpt4t");
+            let gpt4t = document.getElementById("gpt4turl");
+            gpt4t.value = element.url;
+            let gpt4tkey = document.getElementById("gpt4tkey");
+            gpt4tkey.value = element.key;
+
+            element = config.find(obj => obj.name === "gpt4v");
+            let gpt4v = document.getElementById("gpt4vurl");
+            gpt4v.value = element.url;
+            let gpt4vkey = document.getElementById("gpt4vkey");
+            gpt4vkey.value = element.key;
+        }
+        function getModelProperties() {
+            let xhttp = new XMLHttpRequest();
+            
+            let url = "/model-config";
+            xhttp.open("GET", url, true);
+
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.onreadystatechange = function() {
+               if (this.readyState == 4) {
+                  config = JSON.parse(this.responseText);
+                  if (this.status == 200) {
+                     setModelConfig(config)
+                  } else {
+                     console.log("An error occurred during the transaction")
+                  }
+               };
+            }
+            xhttp.onerror = function() {
+               console.log("An error occurred during the transaction")
+            };
+            xhttp.send();
+
+        }
+        function saveModelProperties(config) {
+            let xhttp = new XMLHttpRequest();
+            
+            let url = "/model-config";
+            xhttp.open("POST", url, true);
+
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.onreadystatechange = function() {
+               if (this.readyState == 4) {
+                  if (this.status == 200) {
+                     console.log("Saved model properties successfully")
+                  } else {
+                     console.log("Error saving model properties")
+                  }
+               };
+            }
+            xhttp.onerror = function() {
+               console.log("An error occurred during the transaction")
+            };
+            xhttp.send(JSON.stringify(config));
+        }
+   </script>
+</html>
