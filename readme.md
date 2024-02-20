@@ -1,4 +1,4 @@
-# Pre-requisites
+# Prerequisites
 Dependencies needed for this application can be installed by running the following commands:
 - pip install flask
 - pip install tiktoken
